@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ColMarket - Update Product
+{% endblock %}
+
+{% block body %}
+	{{ include('header.html.twig') }}
+	<main>
+		<h1>Update Product</h1>
+
+        {{ form(form)}}
+
+		<a href="{{ path('app_home') }}">Back to Products</a>
+	</main>
+{% endblock %}
