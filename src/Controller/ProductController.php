@@ -24,7 +24,7 @@ class ProductController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($product);
             $em->flush();
-            return $this->redirectToRoute('app_product');
+            return $this->redirectToRoute('app_home');
         }
 
         $products = $em->getRepository(Produit::class)->findAll();
@@ -44,4 +44,24 @@ class ProductController extends AbstractController
         }
         return $this->redirectToRoute('app_product');
     }
+
+    #[Route('/product/update/{id}', name: 'app_product_update')]
+    public function updateProduct(Request $request, EntityManagerInterface $em, Produit $product): Response
+    {
+        $form = $this->createForm(ProductType::class, $product);
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('app_home');
+        }
+    
+        return $this->render('product/update.html.twig', [
+            'form' => $form,
+            'product' => $product,
+        ]);
+    }
+
 }
