@@ -17,18 +17,19 @@ class Panier
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'paniers')]
-    private ?Utilisateur $Utilisateur = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $Date_achat = null;
+    private ?\DateTimeInterface $dateAchat = null;
 
     #[ORM\Column]
-    private ?bool $Etat = null;
+    private ?bool $etat = null;
 
     /**
      * @var Collection<int, ContenuPanier>
      */
-    #[ORM\OneToMany(targetEntity: ContenuPanier::class, mappedBy: 'Panier')]
+    #[ORM\OneToMany(targetEntity: ContenuPanier::class, mappedBy: 'panier')]
     private Collection $contenuPaniers;
 
     public function __construct()
@@ -41,38 +42,38 @@ class Panier
         return $this->id;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUser(): ?User
     {
-        return $this->Utilisateur;
+        return $this->user;
     }
 
-    public function setUtilisateur(?Utilisateur $Utilisateur): static
+    public function setUser(?User $user): static
     {
-        $this->Utilisateur = $Utilisateur;
+        $this->user = $user;
 
         return $this;
     }
 
     public function getDateAchat(): ?\DateTimeInterface
     {
-        return $this->Date_achat;
+        return $this->dateAchat;
     }
 
-    public function setDateAchat(\DateTimeInterface $Date_achat): static
+    public function setDateAchat(\DateTimeInterface $dateAchat): static
     {
-        $this->Date_achat = $Date_achat;
+        $this->dateAchat = $dateAchat;
 
         return $this;
     }
 
     public function isEtat(): ?bool
     {
-        return $this->Etat;
+        return $this->etat;
     }
 
-    public function setEtat(bool $Etat): static
+    public function setEtat(bool $etat): static
     {
-        $this->Etat = $Etat;
+        $this->etat = $etat;
 
         return $this;
     }
