@@ -1,14 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserProfileController!
+{% block title %}ColMarket
 {% endblock %}
 
 {% block body %}
-    {{ include('header.html.twig') }}
+	{{ include('header.html.twig') }}
 	<main>
-		<pre>
-            {{ dump(user) }}
-        </pre>
+		<h1>Profil de
+			{{ user.email }}</h1>
+
+		<h2>Historique des Paniers</h2>
+
+		{% if paniers is empty %}
+			<p>Vous n'avez aucun panier acheté.</p>
+		{% else %}
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Date d'achat</th>
+						<th>Total</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for panier in paniers %}
+						<tr>
+							<td>{{ panier.id }}</td>
+							<td>{{ panier.dateAchat ? panier.dateAchat|date('d/m/Y H:i') : 'N/A' }}</td>
+							<td>
+								{% set total = 0 %}
+								{% for contenu in contenus[panier.id] %}
+									{% set total = total + (contenu.produit.prix * contenu.quantite) %}
+								{% endfor %}
+								{{ total }}
+								€
+							</td>
+							<td>
+								<a href="{{ path('app_user_profile_cart_by_id', {id: panier.id}) }}">Voir Contenus</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
 		<form action="{{path('app_logout')}}">
 			<input type="submit" value="Déconnexion">
 		</form>

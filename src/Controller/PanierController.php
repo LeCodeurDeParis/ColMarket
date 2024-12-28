@@ -59,8 +59,11 @@ class PanierController extends AbstractController
         $panier = $em->getRepository(Panier::class)->findOneBy(['user' => $user, 'etat' => false]);
 
         if (!$panier) {
-            $this->addFlash('error', 'Aucun Panier lié à l\'utilisateur');
-            return $this->redirectToRoute('app_panier');
+            $panier = new Panier();
+            $panier->setEtat(false);
+            $panier->setUser($user);
+            $em->persist($panier);
+            $em->flush(); 
         }
 
         if (!$product) {
@@ -126,11 +129,6 @@ class PanierController extends AbstractController
             'user' => $user,
             'etat' => false
         ]);
-
-        if (!$panier) {
-            $this->addFlash('error', 'Aucun panier à acheter.');
-            return $this->redirectToRoute('app_panier');
-        }
 
         $this->addFlash('info', 'Panier trouvé avec ID : ' . $panier->getId());
 
