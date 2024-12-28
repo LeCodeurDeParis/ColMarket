@@ -5,16 +5,20 @@
 {% block body %}
     {{ include('header.html.twig') }}
     <main>
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ form(form) }}
+        {% endif %}
+        
         {% for produit in products %}
-            <h2>{{produit.nom}}</h2>
+            {% if produit.photo is empty %}
+            <p>No Image available<p>
+            {% endif %}
+            <a href="{{path('app_product_show', {id: produit.id}) }}"><h2>{{produit.nom}}</h2></a>
             <p>{{produit.description}}</p>
-            <form action="{{path('app_product_delete', {id: produit.id})}}" method="POST">
-                <input type="hidden" name="csrf" value="{{ csrf_token('delete' ~ produit.id) }}">
-                <input type="submit" value="Delete">
-            </form>
-            <hr/>
+            <p>{{produit.prix}}€</p>
+            <p>Quantité restante: {{produit.stock}}</p>
         {% else %}
-            <p>No products</p>
+            <p>No products available</p>
         {% endfor %}
     </main>
 {% endblock %}

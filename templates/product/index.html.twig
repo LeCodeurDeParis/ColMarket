@@ -1,10 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}ColMarket{% endblock %}
 
 {% block body %}
     {{ include('header.html.twig') }}
     <main>
-        {{ form(form)}}
+        <h2>{{product.nom}}</h2>
+        <p>{{product.description}}</p>
+        <p>{{product.prix}}€</p>
+        <p>Quantité restante: {{product.stock}}</p>
+        <form action="{{path('app_panier_add', {id: product.id}) }}">
+            <input type="submit" value="Acheter">
+        </form>
+        {% if is_granted('ROLE_ADMIN') %}
+            <form action="{{path('app_product_delete', {id: product.id})}}" method="POST">
+                <input type="hidden" name="csrf" value="{{ csrf_token('delete' ~ product.id) }}">
+                <input type="submit" value="Delete">
+            </form>
+            <form action="{{path('app_product_update', {id: product.id}) }}">
+                <input type="hidden" name="csrf" value="{{ csrf_token('update' ~ product.id) }}">
+                <input type="submit" value="Update">
+            </form>
+        {% endif %}
     </main>
 {% endblock %}

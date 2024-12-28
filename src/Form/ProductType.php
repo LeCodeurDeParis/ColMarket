@@ -19,7 +19,7 @@ class ProductType extends AbstractType
             ->add('Prix')
             ->add('Stock')
             ->add('Photo')
-            ->add('save', SubmitType::class, ['label' => 'Ajouter un Produit'])
+            ->add('save', SubmitType::class, ['label' => 'Sauvergarder le Produit'])
         ;
     }
 
