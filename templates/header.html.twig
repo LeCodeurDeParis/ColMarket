@@ -9,13 +9,11 @@
         {% if app.user %}
             <a href="{{ path('app_user_profile') }}" class="mx-1 text-lg">{{ app.user.prenom }} {{ app.user.nom }}
             <a href="{{ path('app_home') }}" class="mx-1 text-lg">Accueil</a>
-            <a href="{{ path('app_product') }}" class="mx-1 text-lg">Boutique</a>
-            <a class="mx-1 text-lg">Panier</a>
+            <a href="{{ path('app_panier') }}"class="mx-1 text-lg">Panier</a>
         {% else %}
             <a href="{{ path('app_login') }}" class="mx-1 text-lg">Se connecter</a>
             <a href="{{ path('app_home') }}" class="mx-1 text-lg">Accueil</a>
-            <a href="{{ path('app_product') }}" class="mx-1 text-lg">Boutique</a>
-            <a class="mx-1 text-lg">Panier</a>
+            <a href="{{ path('app_panier') }}" class="mx-1 text-lg">Panier</a>
         {% endif %}
         </div>
     </header>

@@ -25,7 +25,7 @@ class ContenuPanier
     #[ORM\Column]
     private ?int $quantite = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
 
     public function getId(): ?int
