@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier
+{% endblock %}
+
+{% block body %}
+	{{ include('header.html.twig') }}
+	{% for label, messages in app.flashes %}
+		<div class="flash-{{ label }}">
+			{% for message in messages %}
+				<p>{{ message }}</p>
+			{% endfor %}
+		</div>
+	{% endfor %}
+	<main>
+		<h1>Mon Panier</h1>
+        <p>{{ panier.id }}</p>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Quantité</th>
+					<th>Prix Unitaire</th>
+					<th>Montant</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for contenu in contenus %}
+					<tr>
+						<td>{{ contenu.produit.nom }}</td>
+						<td>{{ contenu.quantite }}</td>
+						<td>{{ contenu.produit.prix }}€</td>
+						<td>{{ contenu.quantite * contenu.produit.prix }}€</td>
+						<td>
+							<a href="{{ path('app_panier_remove', {id: contenu.produit.id}) }}" class="btn btn-danger">Supprimer</a>
+						</td>
+					</tr>
+					<p>{{ contenu.id }}</p>
+				{% endfor %}
+			</tbody>
+		</table>
+        <form action="{{path('app_panier_delete', {id: panier.id})}}" method="POST">
+            <input type="submit" value="Supprimer le Panier">
+        </form>
+		<h3>Total :
+			{{ total }}€</h3>
+		<a href="{{ path('app_panier_buy') }}" class="btn btn-success">Acheter</a>
+	</main>
+{% endblock %}

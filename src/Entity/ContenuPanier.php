@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ContenuPanierRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContenuPanierRepository::class)]
@@ -15,14 +16,17 @@ class ContenuPanier
 
     #[ORM\ManyToOne(inversedBy: 'contenuPaniers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Produit $Produit = null;
+    private ?Produit $produit = null;
 
     #[ORM\ManyToOne(inversedBy: 'contenuPaniers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Panier $Panier = null;
+    private ?Panier $panier = null;
 
     #[ORM\Column]
-    private ?int $Quantité = null;
+    private ?int $quantite = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date = null;
 
     public function getId(): ?int
     {
@@ -31,36 +35,48 @@ class ContenuPanier
 
     public function getProduit(): ?Produit
     {
-        return $this->Produit;
+        return $this->produit;
     }
 
-    public function setProduit(?Produit $Produit): static
+    public function setProduit(?Produit $produit): static
     {
-        $this->Produit = $Produit;
+        $this->produit = $produit;
 
         return $this;
     }
 
     public function getPanier(): ?Panier
     {
-        return $this->Panier;
+        return $this->panier;
     }
 
-    public function setPanier(?Panier $Panier): static
+    public function setPanier(?Panier $panier): static
     {
-        $this->Panier = $Panier;
+        $this->panier = $panier;
 
         return $this;
     }
 
-    public function getQuantité(): ?int
+    public function getQuantite(): ?int
     {
-        return $this->Quantité;
+        return $this->quantite;
     }
 
-    public function setQuantité(int $Quantité): static
+    public function setQuantite(int $quantite): static
     {
-        $this->Quantité = $Quantité;
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
 
         return $this;
     }

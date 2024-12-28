@@ -47,7 +47,7 @@ class Produit
     /**
      * @var Collection<int, ContenuPanier>
      */
-    #[ORM\OneToMany(targetEntity: ContenuPanier::class, mappedBy: 'Produit')]
+    #[ORM\OneToMany(targetEntity: ContenuPanier::class, mappedBy: 'produit')]
     private Collection $contenuPaniers;
 
     public function __construct()
