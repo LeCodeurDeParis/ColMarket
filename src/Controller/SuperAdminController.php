@@ -11,6 +11,7 @@ use App\Entity\ContenuPanier;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use DateTime;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted('ROLE_SUPER_ADMIN')]
 class SuperAdminController extends AbstractController
@@ -49,18 +50,17 @@ class SuperAdminController extends AbstractController
     #[Route('/super/admin/showCartByID/{id}', name: 'app_super_admin_cart_by_id')]
     public function showCartByID(EntityManagerInterface $em, int $id): Response
     {
-        $user = $this->getUser();
 
         $panier = $em->getRepository(Panier::class)->findOneBy([
             'id' => $id,
-            'user' => $user,
             'etat' => "0"
         ]);
 
         if (!$panier) {
             throw $this->createNotFoundException('No cart found for id ' . $id);
         }
-
+        
+        $user = $panier->getUser();
         $contenuPanier = $em->getRepository(ContenuPanier::class)->findBy(['panier' => $panier]);
 
         return $this->render('super_admin/contenuUserPanier.html.twig', [

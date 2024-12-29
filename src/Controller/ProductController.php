@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Produit;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,7 +37,9 @@ class ProductController extends AbstractController
     #[Route('/admin/product/update/{id}', name: 'app_product_update')]
     public function updateProduct(Request $request, EntityManagerInterface $em, Produit $product): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            'attr' => ['class' => 'flex flex-col items-center mb-auto p-8 bg-slate-600 text-white rounded-lg']
+        ]);
     
         $form->handleRequest($request);
     

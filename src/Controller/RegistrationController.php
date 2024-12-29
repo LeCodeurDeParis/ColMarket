@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -32,7 +33,7 @@ class RegistrationController extends AbstractController
 
             $this->addFlash('success', 'Inscription réussie. Vous pouvez maintenant vous connecter.');
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         } else {
             $this->addFlash('error', 'Il y a des erreurs dans le formulaire. Veuillez les corriger.');
         }

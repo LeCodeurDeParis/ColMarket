@@ -6,10 +6,12 @@
 {% block body %}
 	{{ include('header.html.twig') }}
 	<main>
-		<h1>Update Product</h1>
+		<h1 class="mx-4 text-2xl">{{ 'Mproduits.maj'|trans }}</h1>
+        <div class="flex justify-center mt-16">
+			{% form_theme form 'form/layout.html.twig' %}
+        	{{ form(form)}}
+		</div>
 
-        {{ form(form)}}
-
-		<a href="{{ path('app_home') }}">Back to Products</a>
+		<a class="mx-4 p-4 w-24 h-10 bg-gradient-to-br from-[#A85707] to-[#893526] rounded-full text-white" href="{{ path('app_home') }}">Back to Products</a>
 	</main>
 {% endblock %}

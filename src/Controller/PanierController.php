@@ -11,6 +11,7 @@ use App\Entity\Panier;
 use App\Entity\Produit;
 use App\Entity\ContenuPanier;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class PanierController extends AbstractController

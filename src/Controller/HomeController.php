@@ -12,6 +12,7 @@ use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {

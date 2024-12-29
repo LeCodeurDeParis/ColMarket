@@ -6,46 +6,53 @@
 {% block body %}
 	{{ include('header.html.twig') }}
 	<main>
-		<h1>Profil de
+		<h1 class="mx-4 text-2xl">{{ 'profil.titre'|trans }}
 			{{ user.email }}</h1>
 
-		<h2>Historique des Paniers</h2>
+		<h2 class="text-xl mx-4 my-8">{{ 'profil.historique'|trans }}</h2>
 
 		{% if paniers is empty %}
-			<p>Vous n'avez aucun panier acheté.</p>
+			<p>{{ 'profil.noPanier'|trans }}</p>
 		{% else %}
-			<table>
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Date d'achat</th>
-						<th>Total</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for panier in paniers %}
-						<tr>
-							<td>{{ panier.id }}</td>
-							<td>{{ panier.dateAchat ? panier.dateAchat|date('d/m/Y H:i') : 'N/A' }}</td>
-							<td>
-								{% set total = 0 %}
-								{% for contenu in contenus[panier.id] %}
-									{% set total = total + (contenu.produit.prix * contenu.quantite) %}
-								{% endfor %}
-								{{ total }}
-								€
-							</td>
-							<td>
-								<a href="{{ path('app_user_profile_cart_by_id', {id: panier.id}) }}">Voir Contenus</a>
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+			<table class="min-w-full bg-white border border-gray-200">
+    <thead>
+        <tr class="bg-gray-100 border-b">
+            <th class="px-8 py-2 text-left text-gray-600">{{ 'profil.dateAchat'|trans }}</th>
+            <th class="px-4 py-2 text-left text-gray-600">Total</th>
+            <th class="px-4 py-2 text-left text-gray-600">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for panier in paniers %}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="px-8 py-2">{{ panier.dateAchat ? panier.dateAchat|date('d/m/Y H:i') : 'N/A' }}</td>
+                <td class="px-4 py-2">
+                    {% set total = 0 %}
+                    {% for contenu in contenus[panier.id] %}
+                        {% set total = total + (contenu.produit.prix * contenu.quantite) %}
+                    {% endfor %}
+                    {{ total }} €
+                </td>
+                <td class="px-4 py-2">
+                    <a href="{{ path('app_user_profile_cart_by_id', {id: panier.id}) }}" class="text-blue-500 hover:underline">{{ 'profil.voirCommande'|trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 		{% endif %}
-		<form action="{{path('app_logout')}}">
-			<input type="submit" value="Déconnexion">
-		</form>
+        <div class="flex justify-around">
+            <form class="mt-4 mx-4" action="{{path('app_logout')}}">
+                <input class="w-24 h-10 bg-gradient-to-br from-[#A85707] to-[#893526] rounded-full text-white" type="submit" value="{{ 'profil.deconnexion'|trans }}">
+            </form>
+            <form class="mt-4 mx-4" action="{{path('app_user_profile_update', {id: user.id})}}">
+                <input class="w-24 h-10 bg-gradient-to-br from-[#A85707] to-[#893526] rounded-full text-white" type="submit" value="{{ 'profil.editerProfile'|trans }}">
+            </form>
+            {% if is_granted('ROLE_ADMIN') %}
+                <form class="mt-4 mx-4" action="{{path('app_super_admin')}}">
+                    <input class="w-24 h-10 bg-gradient-to-br from-[#A85707] to-[#893526] rounded-full text-white" type="submit" value="Super Admin">
+                </form>
+            {% endif %}
+        </div>
 	</main>
 {% endblock %}

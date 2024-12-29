@@ -1,0 +1,79 @@
+haccueil: Home
+hpanier: Cart
+hproduits: Products
+hconnecter: Login
+
+Mproduits:
+  titre: Products
+  nom: Product name
+  description: Products list
+  ajouter: Add to cart
+  retirer: Remove from cart
+  photo: No photo available
+  quantite:  Quantity remaining
+  prix: Price
+  ajouterProduit: Add a product
+  pasProduit: No product available.
+  maj: Update product
+  save: Save product
+
+connexion:
+  titre: Login
+  description: Log in to access your cart
+  email: Email address
+  motdepasse: Password
+  connexion: Login
+  inscription: Register
+  erreur: Connection error
+  pascompte: No account?
+  terms: I accept the terms of use
+  termsError: You must accept the terms of use.
+  nom: Name
+  prenom: First name
+
+Mpanier:
+  titre: Cart
+  nom: Name
+  quantite: Quantity
+  prixu: Unit Price
+  montant: Amount
+  total: Total
+  action: Action
+  supprimer: Delete
+  supprimerPanier: Delete cart
+  acheter: Buy
+  contenu: Cart content
+  
+profil:
+ titre: Profile of
+ historique: Order history
+ deconnexion: Logout
+ noPanier: You have not placed any orders.
+ dateAchat: Purchase date
+ voirCommande: View order
+ retourProfile: Back to profile
+ editerProfile: Edit profile
+
+messagesPanier:
+  erreurUtilisateur: You must be logged in to access your cart.
+  erreurProduit: Product not found.
+  erreurProduitPanier: Product not found in cart.
+  erreurPanier: Cart is empty.
+  erreurPanierNF: Cart not found.
+  erreurQuantite: Insufficient stock.
+  succesAjout: Product added to cart.
+  succesAchat: Purchase successful.
+  succesSuppression: Cart deleted.
+
+messagesInscription:
+  erreurInscription: There are errors in the form. Please correct them.
+  succesInscription: Registration successful.
+
+SuperAdmin:
+  numPanier: Cart number
+  utilisateur: User
+  contenu: Content
+  listePanier: List of carts
+  inscription: Registration for today
+  dateInscription : Registration date
+  appartenant: belonging to

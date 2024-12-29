@@ -1,41 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ColMarket{% endblock %}
+{% block title %}ColMarket
+{% endblock %}
 
 {% block body %}
 	{{ include('header.html.twig') }}
 	<main>
-    <h1>Contenus du Panier #{{ panier.id }} </h1>
+		<h1>{{ 'Mpanier.contenu'|trans }}
+			#{{ panier.id }}
+		</h1>
 
-        <h2>Date d'achat : {{ panier.dateAchat ? panier.dateAchat|date('d/m/Y H:i') : 'N/A' }}</h2>
+		<h2>{{ 'profil.dateAchat'|trans }}
+			:
+			{{ panier.dateAchat ? panier.dateAchat|date('d/m/Y H:i') : 'N/A' }}</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Produit</th>
-                    <th>Quantité</th>
-                    <th>Prix Unitaire</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% set totalGeneral = 0 %}
-                {% for contenu in contenuPanier %}
-                    <tr>
-                        <td>{{ contenu.produit.nom }}</td>
-                        <td>{{ contenu.quantite }}</td>
-                        <td>{{ contenu.produit.prix }} €</td>
-                        <td>{{ contenu.produit.prix * contenu.quantite }} €</td>
-                    </tr>
-                    {% set totalGeneral = totalGeneral + (contenu.produit.prix * contenu.quantite) %}
-                {% endfor %}
-                <tr>
-                    <td colspan="3" style="text-align: right;"><strong>Total Général :</strong></td>
-                    <td><strong>{{ totalGeneral }} €</strong></td>
-                </tr>
-            </tbody>
-        </table>
+		<table class="min-w-full bg-white border border-gray-200 mt-8">
+			<thead>
+				<tr class="bg-gray-100 border-b">
+					<th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.nom'|trans }}</th>
+					<th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.quantite'|trans }}</th>
+					<th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.prixu'|trans }}</th>
+					<th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.montant'|trans }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% set totalGeneral = 0 %}
+				{% for contenu in contenuPanier %}
+					<tr class="border-b hover:bg-gray-50">
+						<td class="px-4 py-2">{{ contenu.produit.nom }}</td>
+						<td class="px-4 py-2">{{ contenu.quantite }}</td>
+						<td class="px-4 py-2">{{ contenu.produit.prix }}
+							€</td>
+						<td class="px-4 py-2">{{ contenu.produit.prix * contenu.quantite }}
+							€</td>
+					</tr>
+					{% set totalGeneral = totalGeneral + (contenu.produit.prix * contenu.quantite) %}
+				{% endfor %}
+				<tr class="bg-gray-100">
+					<td colspan="3" class="px-4 py-2 text-center">
+						<strong>Total : {{ totalGeneral }}€</strong>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 
-        <a href="{{ path('app_user_profile') }}">Retour au profil</a>
-    </main>
+		<a href="{{ path('app_user_profile') }}">{{ 'profil.retourProfile'|trans }}</a>
+	</main>
 {% endblock %}

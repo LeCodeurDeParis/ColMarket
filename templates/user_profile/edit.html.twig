@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer le profil{% endblock %}
+
+{% block body %}
+    {{ include('header.html.twig') }}
+    <main class="max-w-4xl mx-auto mt-10">
+        <h1 class="text-2xl font-bold mb-6">Éditer le profil</h1>
+
+        {{ form_start(form) }}
+            <div class="mb-4">
+                {{ form_label(form.email, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="mb-4">
+                {{ form_label(form.nom, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(form.nom, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
+                {{ form_errors(form.nom) }}
+            </div>
+            <div class="mb-4">
+                {{ form_label(form.prenom, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                {{ form_widget(form.prenom, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
+                {{ form_errors(form.prenom) }}
+            </div>
+            <div class="mt-6">
+                <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-br from-[#475569] to-[#112C51] hover:from-[#112C51] hover:to-[#475569] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Sauvegarder
+                </button>
+            </div>
+        {{ form_end(form) }}
+    </main>
+{% endblock %}

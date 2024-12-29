@@ -4,47 +4,40 @@
 
 {% block body %}
 	{{ include('header.html.twig') }}
-	{% for label, messages in app.flashes %}
-		<div class="flash-{{ label }}">
-			{% for message in messages %}
-				<p>{{ message }}</p>
-			{% endfor %}
-		</div>
-	{% endfor %}
 	<main>
-		<h1>Mon Panier</h1>
-        <p>{{ panier.id }}</p>
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Nom</th>
-					<th>Quantité</th>
-					<th>Prix Unitaire</th>
-					<th>Montant</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for contenu in contenus %}
-					<tr>
-						<td>{{ contenu.produit.nom }}</td>
-						<td>{{ contenu.quantite }}</td>
-						<td>{{ contenu.produit.prix }}€</td>
-						<td>{{ contenu.quantite * contenu.produit.prix }}€</td>
-						<td>
-							<a href="{{ path('app_panier_remove', {id: contenu.produit.id}) }}" class="btn btn-danger">Supprimer</a>
-						</td>
-					</tr>
-					<p>{{ contenu.id }}</p>
-				{% endfor %}
-			</tbody>
-		</table>
-        <form action="{{path('app_panier_delete', {id: panier.id})}}" method="POST">
-            <input type="submit" value="Supprimer le Panier">
-        </form>
-		<h3>Total :
-			{{ total }}€</h3>
-		<a href="{{ path('app_panier_buy') }}" class="btn btn-success">Acheter</a>
+<h1 class="text-2xl font-bold mb-6 mx-4">{{ 'Mpanier.titre'|trans }}</h1>
+        <table class="min-w-full bg-white border border-gray-200 mb-8">
+            <thead>
+                <tr class="bg-gray-100 border-b">
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.nom'|trans }}</th>
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.quantite'|trans }}</th>
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.prixu'|trans }}</th>
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.montant'|trans }}</th>
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'Mpanier.action'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contenu in contenus %}
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-4 py-2">{{ contenu.produit.nom }}</td>
+                        <td class="px-4 py-2">{{ contenu.quantite }}</td>
+                        <td class="px-4 py-2">{{ contenu.produit.prix }}€</td>
+                        <td class="px-4 py-2">{{ contenu.quantite * contenu.produit.prix }}€</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ path('app_panier_remove', {id: contenu.produit.id}) }}" class="text-red-500 hover:underline">{{ 'Mpanier.supprimer'|trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+		<h3 class="text-xl font-semibold mb-4 mx-4">Total :
+			{{ total }}€
+        </h3>
+        <div class="flex justify-center gap-4">
+            <a href="{{ path('app_panier_buy') }}" class=" p-2 w-12 h-auto bg-gradient-to-br from-[#A85707] to-[#893526] rounded-full text-white">{{ 'Mpanier.acheter'|trans }}</a>
+            <form action="{{path('app_panier_delete', {id: panier.id})}}" method="POST">
+                <input type="submit" value="{{ 'Mpanier.supprimerPanier'|trans }} " class=" p-2 w-32 h-auto bg-gradient-to-br from-[#A85707] to-[#893526] rounded-full text-white">
+            </form>
+        </div>
 	</main>
 {% endblock %}

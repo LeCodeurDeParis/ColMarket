@@ -6,47 +6,48 @@
 {% block body %}
 	{{ include('header.html.twig') }}
 	<main>
-		<h1>Liste des paniers non achetés</h1>
+		<h1 class="text-2xl font-bold mb-6 mx-4">{{ 'SuperAdmin.listePanier'|trans }}</h1>
 
-		<table>
-			<thead>
-				<tr>
-					<th>Numéro du Panier</th>
-					<th>Utilisateur</th>
-					<th>Contenu</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for panier in paniers %}
-					<tr>
-						<td>{{ panier.panier_id }}</td>
-						<td>{{ panier.user_email }}</td>
-						<td>
-							<a href="{{ path('app_super_admin_cart_by_id', {id: panier.panier_id} )}}"> Contenu </a>
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-        <h2>Inscriptions faites aujourd'hui</h2>
+		<table class="min-w-full bg-white border border-gray-200 mb-8">
+            <thead>
+                <tr class="bg-gray-100 border-b">
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'SuperAdmin.numPanier'|trans }}</th>
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'SuperAdmin.utilisateur'|trans }}</th>
+                    <th class="px-4 py-2 text-left text-gray-600">{{ 'SuperAdmin.contenu'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for panier in paniers %}
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-4 py-2">{{ panier.panier_id }}</td>
+                        <td class="px-4 py-2">{{ panier.user_email }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ path('app_super_admin_cart_by_id', {id: panier.panier_id} )}}" class="text-blue-500 hover:underline">{{ 'SuperAdmin.contenu'|trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="text-xl font-bold mb-4 mx-4">{{ 'SuperAdmin.inscription'|trans }} :</h2>
 
         {% if users is empty %}
             <p>Aucun utilisateur ne s'est inscrit aujourd'hui.</p>
         {% else %}
-            <table>
+            <table class="min-w-full bg-white border border-gray-200">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Date d'inscription</th>
+                    <tr class="bg-gray-100 border-b">
+                        <th class="px-4 py-2 text-left text-gray-600">ID</th>
+                        <th class="px-4 py-2 text-left text-gray-600">Email</th>
+                        <th class="px-4 py-2 text-left text-gray-600">{{ 'SuperAdmin.dateInscription'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in users %}
-                        <tr>
-                            <td>{{ user.id }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.createdAt ? user.createdAt|date('d/m/Y H:i') : 'N/A' }}</td>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-4 py-2">{{ user.id }}</td>
+                            <td class="px-4 py-2">{{ user.email }}</td>
+                            <td class="px-4 py-2">{{ user.createdAt ? user.createdAt|date('d/m/Y H:i') : 'N/A' }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

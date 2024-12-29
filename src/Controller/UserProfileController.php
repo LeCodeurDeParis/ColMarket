@@ -9,6 +9,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Panier;
 use App\Entity\ContenuPanier;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Entity\User;
+use App\Form\UserProfileType;
+
+
 
 
 class UserProfileController extends AbstractController
@@ -36,6 +42,30 @@ class UserProfileController extends AbstractController
             'contenus' => $contenus,
         ]);
     }
+
+    #[Route('/user/profile/update/{id}', name: 'app_user_profile_update')]
+    public function update(Request $request, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserProfileType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Profil mis à jour avec succès.');
+
+            return $this->redirectToRoute('app_user_profile');
+        }
+
+        return $this->render('user_profile/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/user/profile/showCartByID/{id}', name: 'app_user_profile_cart_by_id')]
     public function showCartByID(EntityManagerInterface $em, int $id): Response
     {
@@ -48,7 +78,7 @@ class UserProfileController extends AbstractController
         ]);
 
         if (!$panier) {
-            throw $this->createNotFoundException('No cart found for id ' . $id);
+            $this->addFlash('error', 'Panier non trouvé avec l\'id.' . $id);
         }
 
         $contenuPanier = $em->getRepository(ContenuPanier::class)->findBy(['panier' => $panier]);

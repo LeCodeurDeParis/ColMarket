@@ -1,0 +1,79 @@
+haccueil: Accueil
+hpanier: Panier
+hproduits: Produits
+hconnecter: Se connecter
+
+Mproduits:
+  titre: Produits
+  nom: Nom du produit
+  description: Liste des produits
+  ajouter: Ajouter au panier
+  retirer: Retirer du panier
+  photo: Pas de photo disponible
+  quantite: Quantité restante
+  prix: Prix
+  ajouterProduit: Ajouter un produit
+  pasProduit: Pas de produit disponible.
+  maj: Mettre à jour le produit
+  save: Enregistrer le produit
+
+connexion:
+  titre: Connexion
+  description: Connectez-vous pour accéder à votre panier.
+  email: Adresse email
+  motdepasse: Mot de passe
+  connexion: Connexion
+  inscription: Inscrivez-vous
+  erreur: Erreur de connexion
+  pascompte: Pas de compte ?
+  terms: J'accepte les conditions d'utilisation
+  termsError: Vous devez accepter les conditions d'utilisation.
+  nom: Nom
+  prenom: Prénom
+
+Mpanier:
+  titre: Panier
+  nom: Nom
+  quantite: Quantité
+  prixu: Prix Unitaire
+  montant: Montant
+  total: Total
+  action: Action
+  supprimer: Supprimer
+  supprimerPanier: Supprimer le panier
+  acheter: Acheter
+  contenu: Contenu du panier
+  
+profil:
+ titre: Profil de
+ historique: Historique des commandes
+ deconnexion: Déconnexion
+ noPanier: Vous n'avez pas passé de commandes.
+ dateAchat: Date d'achat
+ voirCommande: Voir la commande
+ retourProfile: Retour au profil
+ editerProfile: Editer le profil
+
+messagesPanier:
+  erreurUtilisateur: Vous devez être connecté pour accéder à votre panier.
+  erreurProduit: Le produit non trouvé.
+  erreurProduitPanier: Produit introuvable dans le panier.
+  erreurPanier: Le panier est vide.
+  erreurPanierNF: Panier non trouvé.
+  erreurQuantite: Stock insuffisant.
+  succesAjout: Produit ajouté au panier.
+  succesAchat: Achat effectué avec succès.
+  succesSuppression: Panier supprimé.
+
+messagesInscription:
+  erreurInscription: Il y a des erreurs dans le formulaire. Veuillez les corriger.
+  succesInscription: Inscription réussie.
+
+SuperAdmin:
+  numPanier: Numéro du panier
+  utilisateur: Utilisateur
+  contenu: Contenu
+  listePanier: Liste des paniers non achetés
+  inscription: Inscriptions faites aujourd'hui
+  dateInscription: Date d'inscription
+  appartenant: appartenant à

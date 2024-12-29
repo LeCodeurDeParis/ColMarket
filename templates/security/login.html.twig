@@ -15,10 +15,10 @@
                     You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
                 </div>
             {% endif %}
-            <h1 class="flex self-start text-xl ">Please sign in</h1>
+            <h1 class="flex self-start text-xl ">{{ 'connexion.connexion'|trans }}</h1>
             <label for="username">Email</label>
             <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control text-black" autocomplete="email" required autofocus>
-            <label for="password">Password</label>
+            <label for="password">{{ 'connexion.motdepasse'|trans }}</label>
             <input type="password" name="_password" id="password" class="form-control text-black" autocomplete="current-password" required>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -34,9 +34,9 @@
             #}
 
             <button class="w-24 h-10 bg-gradient-to-br from-[#A85707] to-[#893526] rounded-full text-white" type="submit">
-                Sign in
+                {{ 'connexion.connexion'|trans }}
             </button>
-            <p>Don't have an account? <a href="{{ path('app_register') }}" class="italic">Register</a></p>
+            <p> {{ 'connexion.pascompte'|trans }} <a href="{{ path('app_register') }}" class="italic">{{ 'connexion.inscription'|trans }}</a></p>
         </form>
     </main>
 {% endblock %}
