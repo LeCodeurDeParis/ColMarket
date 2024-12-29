@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SuperAdminController!
+{% endblock %}
+
+{% block body %}
+	{{ include('header.html.twig') }}
+	<main>
+		<h1>Liste des paniers non achetés</h1>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Numéro du Panier</th>
+					<th>Utilisateur</th>
+					<th>Contenu</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for panier in paniers %}
+					<tr>
+						<td>{{ panier.panier_id }}</td>
+						<td>{{ panier.user_email }}</td>
+						<td>
+							<a href="{{ path('app_super_admin_cart_by_id', {id: panier.panier_id} )}}"> Contenu </a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+        <h2>Inscriptions faites aujourd'hui</h2>
+
+        {% if users is empty %}
+            <p>Aucun utilisateur ne s'est inscrit aujourd'hui.</p>
+        {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Date d'inscription</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.createdAt ? user.createdAt|date('d/m/Y H:i') : 'N/A' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+	</main>
+{% endblock %}

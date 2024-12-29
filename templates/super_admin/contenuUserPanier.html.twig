@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SuperAdminController!
+{% endblock %}
+
+{% block body %}
+{{ include('header.html.twig') }}
+<main>
+	<h1>Contenus du Panier #{{ panier.id }} appartenant à <strong>{{user.email}}</strong></h1>
+
+	<h2>Date d'achat :
+		{{ panier.dateAchat ? panier.dateAchat|date('d/m/Y H:i') : 'N/A' }}</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Produit</th>
+				<th>Quantité</th>
+				<th>Prix Unitaire</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% set totalGeneral = 0 %}
+			{% for contenu in contenuPanier %}
+				<tr>
+					<td>{{ contenu.produit.nom }}</td>
+					<td>{{ contenu.quantite }}</td>
+					<td>{{ contenu.produit.prix }}
+						€</td>
+					<td>{{ contenu.produit.prix * contenu.quantite }}
+						€</td>
+				</tr>
+				{% set totalGeneral = totalGeneral + (contenu.produit.prix * contenu.quantite) %}
+			{% endfor %}
+			<tr>
+				<td colspan="3" style="text-align: right;">
+					<strong>Total Général :</strong>
+				</td>
+				<td>
+					<strong>{{ totalGeneral }}
+						€</strong>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</main>
+{% endblock %}

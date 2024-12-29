@@ -10,6 +10,7 @@ use App\Entity\Panier;
 use App\Entity\ContenuPanier;
 use Doctrine\ORM\EntityManagerInterface;
 
+
 class UserProfileController extends AbstractController
 {
     #[Route('/user/profile', name: 'app_user_profile')]

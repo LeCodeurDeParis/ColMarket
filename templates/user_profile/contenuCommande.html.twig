@@ -5,7 +5,7 @@
 {% block body %}
 	{{ include('header.html.twig') }}
 	<main>
-    <h1>Contenus du Panier #{{ panier.id }}</h1>
+    <h1>Contenus du Panier #{{ panier.id }} </h1>
 
         <h2>Date d'achat : {{ panier.dateAchat ? panier.dateAchat|date('d/m/Y H:i') : 'N/A' }}</h2>
 

@@ -47,9 +47,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'user')]
     private Collection $paniers;
 
+    #[ORM\Column]
+    private ?\DateTime $createdAt = null;
+
     public function __construct()
     {
         $this->paniers = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -177,6 +181,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $panier->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 use App\Entity\Panier;
 use App\Entity\Produit;
@@ -14,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PanierController extends AbstractController
 {
-    #[Route('/panier', name: 'app_panier')]
+    #[Route('/user/panier', name: 'app_panier')]
     public function index(EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -51,8 +52,7 @@ class PanierController extends AbstractController
             'total' => $total,
         ]);
     }
-
-    #[Route('/panier/add/{id}', name: 'app_panier_add')]
+    #[Route('/user/panier/add/{id}', name: 'app_panier_add')]
     public function add(EntityManagerInterface $em, Produit $product): Response
     {
         $user = $this->getUser();
@@ -93,8 +93,7 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('app_panier');
     }
 
-
-    #[Route('/remove/{id}', name: 'app_panier_remove')]
+    #[Route('/user/remove/{id}', name: 'app_panier_remove')]
     public function remove(EntityManagerInterface $em, Produit $product): Response
     {
         $user = $this->getUser();
@@ -117,20 +116,15 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('app_panier');
     }
 
-    #[Route('/buy', name: 'app_panier_buy')]
+    #[Route('/user/buy', name: 'app_panier_buy')]
     public function buy(EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
-
-
-        $this->addFlash('info', 'Utilisateur connecté : ' . $user->getEmail());
 
         $panier = $em->getRepository(Panier::class)->findOneBy([
             'user' => $user,
             'etat' => false
         ]);
-
-        $this->addFlash('info', 'Panier trouvé avec ID : ' . $panier->getId());
 
         $contenus = $em->getRepository(ContenuPanier::class)->findBy(['panier' => $panier]);
 
@@ -150,7 +144,15 @@ class PanierController extends AbstractController
             }
     
             $product->setStock($nouveauStock);
-            $this->addFlash('info', 'Stock mis à jour pour le produit ' . $product->getNom() . ' : ' . $nouveauStock);
+
+            if ($nouveauStock == 0) {
+                $contenusADelete = $em->getRepository(ContenuPanier::class)->findBy(['produit' => $product]);
+                foreach ($contenusADelete as $contenuADelete) {
+                    $em->remove($contenuADelete);
+                }
+                $em->remove($product);
+                $this->addFlash('info', 'Produit ' . $product->getNom() . ' supprimé car le stock est à 0.');
+            }
         }
 
         $panier->setEtat(true);
@@ -167,7 +169,7 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    #[Route('/deletePanier/{id}', name: 'app_panier_delete')]
+    #[Route('/user/deletePanier/{id}', name: 'app_panier_delete')]
     public function deletePanier(EntityManagerInterface $em,): Response
     {
         $user = $this->getUser();

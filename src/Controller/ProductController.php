@@ -15,7 +15,15 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductController extends AbstractController
 {
 
-    #[Route('/product/delete/{id}', name: 'app_product_delete')]
+    #[Route('product/show/{id}', name: 'app_product_show')]
+    public function showProductWithID(Request $request, EntityManagerInterface $em, Produit $product): Response
+    {
+        return $this->render('product/index.html.twig', [
+            'product' => $product,
+        ]);
+    }
+
+    #[Route('/admin/product/delete/{id}', name: 'app_product_delete')]
     public function delete(Request $request, EntityManagerInterface $em, Produit $product)
     {
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('csrf'))) {
@@ -24,17 +32,8 @@ class ProductController extends AbstractController
         }
         return $this->redirectToRoute('app_product');
     }
-
-    #[Route('/product/show/{id}', name: 'app_product_show')]
-    public function showProductWithID(Request $request, EntityManagerInterface $em, Produit $product): Response
-    {
-        return $this->render('product/index.html.twig', [
-            'product' => $product,
-        ]);
-    }
     
-
-    #[Route('/product/update/{id}', name: 'app_product_update')]
+    #[Route('/admin/product/update/{id}', name: 'app_product_update')]
     public function updateProduct(Request $request, EntityManagerInterface $em, Produit $product): Response
     {
         $form = $this->createForm(ProductType::class, $product);
